@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllUsers, register, getUserById, getUserSpecial } from '../controllers/user.js';
+import { getAllUsers, register, getUserById, getUserSpecial, updateUserById, deleteUserById } from '../controllers/user.js';
 
 const router = express.Router();
 
@@ -16,8 +16,15 @@ router.get("/userid/special", getUserSpecial);
 
 
 //Dynamic Routing
-router.get("/userid/:id", getUserById);
-
+/*router.get("/userid/:id", getUserById);
+router.put("/userid/:id", updateUserById);
+router.delete("/userid/:id", deleteUserById);
+We can also nested this thing in single router */
+router
+    .route("/userid/:id")
+    .get(getUserById)
+    .put(updateUserById)
+    .delete(deleteUserById);
 
 
 

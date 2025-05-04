@@ -1,6 +1,6 @@
 import { User } from "../models/user.js";
 
-export const getAllUsers =  async (req, res) => {
+export const getAllUsers = async (req, res) => {
     //accessing data from url through Query
     const name = req.query.name;
     const blood_type = req.query.blood_type;
@@ -38,6 +38,26 @@ export const getUserById = async (req, res) => {
     res.json({
         success: true,
         user,
+    });
+};
+
+export const updateUserById = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+
+    res.json({
+        success: true,
+        message: "Updated Successfully",
+    });
+};
+
+export const deleteUserById = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    // await user.remove();
+     res.json({
+        success: true,
+        message: "Deleted Successfully",
     });
 };
 
