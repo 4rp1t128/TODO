@@ -1,6 +1,7 @@
 import express from "express";
 import userRouter from './routes/user.js';
 import { config } from "dotenv";
+import cookieParser from "cookie-parser";
 
 export const app = express();
 
@@ -11,7 +12,10 @@ config({
 
 //Using Middleware
 app.use(express.json());
-app.use("/users", userRouter);//we can prefix in Router if users is common in all url
+app.use(cookieParser());
+
+//Using Routes
+app.use("/api/v1/users", userRouter);//we can prefix in Router if users is common in all url
 
 
 app.get("/", (req, res) => {
