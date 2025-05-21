@@ -1,18 +1,16 @@
 import express from 'express';
-import { getAllUsers, register, login, getMyProfile,logout } from '../controllers/user.js';
+import { getAllUsers, register, login, getMyProfile, logout } from '../controllers/user.js';
 import { isAuthenticated } from '../middlewares/auth.js';
 
 const router = express.Router();
 
 
 
-router.get("/all", getAllUsers);
-
 router.post("/new", register);
 
 router.post("/login", login);
 
-router.get("/logout",logout);
+router.get("/logout", logout);
 
 /* the route of  this api is same as dynamic routing but it doesn't show error because dynamic 
   routing is below this routing as in express line is executed sequentially so it found this 
@@ -32,6 +30,9 @@ We can also nested this thing in single router because /users is same for all th
 //     .put(updateUserById)
 //     .delete(deleteUserById);
 
-router.get("/me",isAuthenticated,getMyProfile);
+router.get("/me", isAuthenticated, getMyProfile);
+router.get("/all", isAuthenticated, getAllUsers);
+
+
 
 export default router;

@@ -1,5 +1,6 @@
 import { User } from "../models/user.js";
 import jwt from "jsonwebtoken";
+import ErrorHandler from "./error.js";
 
 export const isAuthenticated = async (req, res, next) => {
 
@@ -8,10 +9,7 @@ export const isAuthenticated = async (req, res, next) => {
     //console.log(token);
 
     if (!token) {
-        return res.status(404).json({
-            success: false,
-            message: "Login First",
-        });
+        return next(new ErrorHandler("Login First",404));
     };
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
